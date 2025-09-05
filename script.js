@@ -15,14 +15,29 @@ function addTask(){
   li.appendChild(span);
 
   const list=document.getElementById("todo-list");
+  // Remove "NO TASKS, YET!" message if present
+  const emptyMsg = document.getElementById("empty-msg");
+  if (emptyMsg) {
+    list.removeChild(emptyMsg);
+  }
   list.appendChild(li);
+
   const deleteBtn=document.createElement("button");
   deleteBtn.textContent="Delete";
+  deleteBtn.classList.add("delete-btn");
   deleteBtn.style.marginLeft="10px";
   li.appendChild(deleteBtn);
   deleteBtn.addEventListener("click",function(){
-    list.removeChild(li)
-  })
+    list.removeChild(li);
+    // If no tasks left, show "NO TASKS, YET!" message
+    if (list.children.length === 0) {
+      const noTasksLi = document.createElement("li");
+      noTasksLi.textContent = "NO TASKS, YET!";
+      noTasksLi.id = "empty-msg";
+      noTasksLi.style.fontStyle = "italic";
+      list.appendChild(noTasksLi);
+    }
+  });
   
   li.addEventListener("click",function(){
     console.log("clicked");
@@ -32,3 +47,15 @@ function addTask(){
   input.value="";
 
 }
+
+// Show "NO TASKS, YET!" if list is empty on load
+window.addEventListener("DOMContentLoaded", function() {
+  const list = document.getElementById("todo-list");
+  if (list.children.length === 0) {
+    const noTasksLi = document.createElement("li");
+    noTasksLi.textContent = "NO TASKS, YET!";
+    noTasksLi.id = "empty-msg";
+    noTasksLi.style.fontStyle = "italic";
+    list.appendChild(noTasksLi);
+  }
+});
