@@ -43,7 +43,7 @@ function addTask(){
     list.removeChild(emptyMsg);
   }
   list.appendChild(li);
-
+ updateCounters();
   const deleteBtn=document.createElement("button");
   deleteBtn.textContent="Delete";
   deleteBtn.classList.add("delete-btn");
